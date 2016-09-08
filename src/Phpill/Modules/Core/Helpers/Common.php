@@ -290,7 +290,7 @@ class Common {
 
 		if (!isset($basic_data[$key])) {
 			$basic_data = array();
-			$basic_result = Phpill::config("game_basic:$key");
+			$basic_result = \Phpill::config("game_basic:$key");
 
 			$basic_data[$key] = $basic_result['value'];
 		}
