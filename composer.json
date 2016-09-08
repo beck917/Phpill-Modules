@@ -15,7 +15,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Phpill\\Modules": "src/Phpill/Modules"
+            "Phpill\\Modules\\": "src/Phpill/Modules"
         }
     }
 }
