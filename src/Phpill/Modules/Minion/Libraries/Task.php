@@ -31,7 +31,11 @@ abstract class Task {
 			return '';
 
 		//return 'Task_'.implode('_', array_map('ucfirst', explode(Minion_Task::$task_separator, $task)));
-        return "\\Application\\Tasks\\".ucfirst($task);
+        if ($task == "help") {
+            return '\Phpill\Modules\Minion\Libraries\\'.ucfirst($task);
+        } else {
+            return "\\Application\\Tasks\\".ucfirst($task);
+        }
 	}
 
 	/**
@@ -47,7 +51,7 @@ abstract class Task {
 			$class = get_class($class);
 		}
 
-		return strtolower(str_replace('_', Minion_Task::$task_separator, substr($class, 5)));
+		return strtolower(str_replace('_', Task::$task_separator, substr($class, 5)));
 	}
 
 	/**
@@ -63,7 +67,7 @@ abstract class Task {
 		{
 			unset($options['task']);
 		}
-		else if (($task = Arr::get($options, 0)) !== NULL)
+		else if (($task = \Phpill\Libraries\Arr::get($options, 0)) !== NULL)
 		{
 			// The first positional argument (aka 0) may be the task name
 			unset($options[0]);
@@ -269,9 +273,9 @@ abstract class Task {
 	 */
 	protected function _help(array $params)
 	{
-		$tasks = $this->_compile_task_list(Kohana::list_files('Application/Tasks'));
+		$tasks = $this->_compile_task_list(\Phpill::list_files('Application/Tasks'));
 
-		$inspector = new ReflectionClass($this);
+		$inspector = new \ReflectionClass($this);
 
 		list($description, $tags) = $this->_parse_doccomment($inspector->getDocComment());
 
