@@ -111,7 +111,7 @@ class Network {
 		echo json_encode(self::$buf);
 	}
 	
-	public static function Debug()
+	public static function debug()
 	{
 		print_r(self::$buf);die();
 	}
