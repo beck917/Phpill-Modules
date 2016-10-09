@@ -89,7 +89,7 @@ class Network {
 	public static function buffer_error($code, $msg = '', $params = array())
 	{
 		if (self::$lang == 1) {
-			$msg = Phpill::lang('error.'.$msg);
+			$msg = \Phpill::lang('error.'.$msg);
 		}
 		
 		self::$buf['protocol'] = array('result' => array('status' => $code, 'msg' => $msg)) + $params;
