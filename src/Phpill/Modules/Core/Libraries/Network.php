@@ -13,7 +13,7 @@ class Network {
 		),
 	);
 	//1:需要翻译 0:无需翻译
-	private static $lang = 1;
+	private static $lang = 0;
 	
 	/**
 	 * 缓冲数据
@@ -89,12 +89,12 @@ class Network {
 	public static function buffer_error($code, $msg = '', $params = array())
 	{
 		if (self::$lang == 1) {
-			$msg = \Phpill::lang('error.'.$msg);
+			$msg = \Phpill::lang($msg);
 		}
 		
 		self::$buf['protocol'] = array('result' => array('status' => $code, 'msg' => $msg)) + $params;
 		unset(self::$buf['data']);
-
+        
 		self::send();
 		die();
 	}
@@ -113,6 +113,7 @@ class Network {
 	
 	public static function debug()
 	{
-		print_r(self::$buf);die();
+        echo \Phpill::debug(self::$buf);
+		die();
 	}
 }
