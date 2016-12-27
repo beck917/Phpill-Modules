@@ -80,7 +80,7 @@ class Network {
 		}
 	}
     
-	public static function getAllBufferData($key)
+	public static function getAllBufferData()
 	{
 		return self::$buf;
 	}
