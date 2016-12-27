@@ -79,6 +79,11 @@ class Network {
 			return array();
 		}
 	}
+    
+	public static function getAllBufferData($key)
+	{
+		return self::$buf;
+	}
 	
 	
 	/**
