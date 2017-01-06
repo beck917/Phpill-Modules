@@ -18,6 +18,7 @@ class LocalCache
     public function __construct($namespace = '')
     {
 		$this->namespace = $namespace;
+        $this->_cache[$this->namespace] = array();
     }
 	
 	public static function instance($namespace = '')
@@ -37,7 +38,7 @@ class LocalCache
      */
     public function get($key)
     {
-        return isset($this->_cache[$this->namespace.$key]) ? $this->_cache[$this->namespace.$key] : null;
+        return isset($this->_cache[$this->namespace][$key]) ? $this->_cache[$this->namespace][$key] : null;
     }
 
     /**
@@ -47,8 +48,32 @@ class LocalCache
      */
     public function set($key, $var)
     {
-        $this->_cache[$this->namespace.$key] = $var;
+        $this->_cache[$this->namespace][$key] = $var;
         return true;
+    }
+
+    public function hSet($key, $field, $value)
+    {
+        if (!isset($this->_cache[$this->namespace][$key])) {
+            $this->_cache[$this->namespace][$key] = [];
+        }
+        $this->_cache[$this->namespace][$key][$field] = $value;
+        return true;
+    }
+    
+    public function hGetAll($key)
+    {
+        return $this->_cache[$this->namespace][$key];
+    }
+    
+    public function getAll()
+    {
+        return $this->_cache[$this->namespace];
+    }
+    
+    public function hGet($key, $field)
+    {
+        return $this->_cache[$this->namespace][$key][$field];
     }
 
     /**
@@ -57,7 +82,7 @@ class LocalCache
      */
     public function delete($key)
     {
-        unset($this->_cache[$this->namespace.$key]);
+        unset($this->_cache[$this->namespace][$key]);
         return true;
     }
 
